@@ -25,6 +25,7 @@ type SearchOptions struct {
 	Status      string `yaml:"status,omitempty" json:"status,omitempty"`
 	Sort        string `yaml:"sort,omitempty" json:"sort,omitempty"`
 	MaxResults  int    `yaml:"max-results,omitempty" json:"max-results,omitempty"`
+	StartAt     int
 }
 
 func (o *SearchOptions) ProvideSearchRequest() *jiradata.SearchRequest {
@@ -66,7 +67,7 @@ func (o *SearchOptions) ProvideSearchRequest() *jiradata.SearchRequest {
 		fields := strings.Split(o.QueryFields, ",")
 		req.Fields = append(req.Fields, fields...)
 	}
-	req.StartAt = 0
+	req.StartAt = o.StartAt
 	req.MaxResults = o.MaxResults
 
 	return req
